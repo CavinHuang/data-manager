@@ -1,0 +1,131 @@
+.theme-container {
+  width: 100%;
+  height: 100%;
+  background-color: #f7f7f7;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  justify-content: center;
+  :global {
+    .left-container {
+      line-height: 20px;
+      text-align: center;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 100);
+      background-color: white;
+      width: 20%;
+      height: calc(100vh - 60px);
+    }
+    .left-scrollbar-container {
+      height: 100%;
+      margin: 20px;
+    }
+    .el-scrollbar__wrap {
+      overflow-x: hidden !important;
+    }
+    .style-btn {
+      line-height: 30px;
+      border-radius: 4px;
+      padding: 3px;
+      color: #707070;
+      font-size: 14px;
+      text-align: center;
+      border: 1px solid #eaeaea;
+    }
+    .theme-title {
+      color: rgba(16, 16, 16, 100);
+      font-size: 24px;
+      text-align: left;
+      line-height: 64px;
+    }
+    .theme-prompt-text {
+      color: rgba(16, 16, 16, 100);
+      font-size: 16px;
+      line-height: 30px;
+      text-align: left;
+    }
+    .color-btn {
+      width: 40px;
+      height: 22px;
+      line-height: 20px;
+      border-radius: 4px;
+      background-color: rgba(11, 141, 213, 100);
+      color: rgba(16, 16, 16, 100);
+      font-size: 14px;
+      text-align: center;
+      margin: 3px;
+      border: 1px solid rgba(255, 255, 255, 100);
+    }
+    .color-btn:hover,
+    .style-btn:hover {
+      cursor: pointer;
+      border: 1px solid rgba(11, 141, 213, 100);
+    }
+    .style-btn-active {
+      border: 1px solid rgba(11, 141, 213, 100);
+    }
+    .head-list-img {
+      border: 2px solid transparent;
+    }
+    .head-list-img:hover {
+      cursor: pointer;
+      border: 2px solid rgba(11, 141, 213, 100);
+    }
+    .head-list-img-active {
+        border: 2px solid rgba(11, 141, 213, 100);
+    }
+    .theme-img-view .head-list-view-select ::after {
+      content: "";
+      background: url('~@/assets/images/mobile_theme_active.png');
+      background-size: 18px;
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      top: 4px;
+      right: 4px;
+    }
+    .right-container {
+      width: 310px;
+      height: calc(100vh - 60px);
+      line-height: 20px;
+      text-align: center;
+      padding: 22px;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 100);
+      background-color: white;
+      margin-right: 5px;
+    }
+    .right-title {
+      color: rgba(16, 16, 16, 100);
+      font-size: 24px;
+      text-align: left;
+      margin: 0 0 30px 0;
+    }
+    .right-container .option-line-view {
+      padding: 0;
+      width: 280px;
+      height: 42px;
+      line-height: 20px;
+      border-radius: 5px;
+      text-align: center;
+      margin-bottom: 10px;
+      border: 1px solid rgba(187, 187, 187, 100);
+    }
+    .right-container .option-line-title {
+      color: rgba(16, 16, 16, 100);
+      line-height: 40px;
+      font-size: 14px;
+      text-align: left;
+    }
+    .option-line-sub-title {
+      color: rgb(82, 81, 81);
+      line-height: 40px;
+      font-size: 13px;
+      text-align: left;
+    }
+  }
+  .preview-container {
+    width: 70%;
+  }
+}

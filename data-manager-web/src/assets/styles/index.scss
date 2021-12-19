@@ -1,0 +1,98 @@
+@import './nomalize';
+@import './var';
+@import './element-ui';
+
+body {
+  background: $body-background;
+}
+.page-content {
+  width: $container-width;
+  margin: 0 auto;
+}
+.mt_20 {
+  margin-top: 20px !important;
+}
+.ml-20 {
+  margin-left: 20px !important;
+}
+.mt_40 {
+  margin-top: 40px !important;
+}
+
+.red-txt {
+  color: red !important;
+}
+
+.el-col-24 {
+  width: 100%;
+}
+
+label {
+  font-weight: 700;
+}
+
+p {
+  margin: 14px 0;
+}
+
+.el-row--flex {
+  display: flex;
+}
+
+.project-form {
+  margin: 15px auto;
+  width: 800px;
+  padding: 15px;
+  background-repeat: repeat;
+  background-color: rgba(229, 239, 247, 0.87);
+}
+.project-form .describe-html img{
+  max-width: 780px;
+  margin: 0px;
+}
+
+.project-body::-webkit-scrollbar {
+  width: 0 !important;
+  background: transparent;
+}
+
+.project-body {
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+}
+
+.logo-img {
+  max-height: 120px;
+}
+
+.submit-btn-form-item {
+  text-align: left;
+}
+
+.submit-btn-form-item button {
+  width: 20%;
+}
+
+@media screen and (max-width: 750px) {
+  .project-form {
+    margin: 0;
+    width: 100% !important;
+    background-color: white;
+  }
+  .logo-img {
+    max-height: 2.94rem;
+  }
+  .submit-btn-form-item {
+    text-align: center;
+  }
+  .submit-btn-form-item button {
+    width: 80%;
+  }
+  .project-form .describe-html img{
+    width: 95vw!important;
+  }
+}
+.page-container {
+  width: 100%;
+  overflow: hidden;
+}

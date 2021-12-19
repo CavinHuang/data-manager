@@ -1,0 +1,25 @@
+.page-container {
+  margin: 0 auto;
+
+  :global {
+    .test {
+      color: red;
+
+      .test1 {
+        color: green;
+      }
+    }
+
+    .font18 {
+      font-size: 18px;
+    }
+
+    .fontWeight {
+      font-weight: bold;
+    }
+
+    .blue {
+      color: blue;
+    }
+  }
+}

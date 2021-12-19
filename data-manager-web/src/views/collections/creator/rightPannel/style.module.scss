@@ -1,0 +1,140 @@
+.right-board {
+  width: 350px;
+  position: absolute;
+  right: 0px;
+  top: 0;
+  padding-top: 3px;
+  background-color: #fff;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  :global {
+    .field-box {
+      position: relative;
+      height: calc(100vh - 70px);
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .el-scrollbar {
+      height: 100%;
+      padding-bottom: 50px;
+    }
+  }
+
+  .option-drag {
+    cursor: move;
+  }
+
+  .time-range {
+    .el-date-editor {
+      width: 227px;
+    }
+    .el-icon-time {
+      display: none;
+    }
+  }
+
+  .node-label {
+    font-size: 14px;
+  }
+
+  .node-icon {
+    color: #bebfc3;
+  }
+}
+.select-container {
+  :global {
+    .select-item {
+      display: flex;
+      border: 1px dashed #fff;
+      box-sizing: border-box;
+      align-items: center;
+
+      & .close-btn {
+        cursor: pointer;
+        color: #f56c6c;
+      }
+
+      & .el-input+.el-input {
+        margin-left: 4px;
+      }
+    }
+
+    .select-item+.select-item {
+      margin-top: 4px;
+    }
+
+    .select-item.sortable-chosen {
+      border: 1px dashed #409eff;
+    }
+
+    .select-line-icon {
+      line-height: 32px;
+      font-size: 22px;
+      padding: 0 4px;
+      color: #777;
+    }
+  }
+}
+.icon-ul {
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+
+  :global {
+    li {
+      list-style-type: none;
+      text-align: center;
+      font-size: 14px;
+      display: inline-block;
+      width: 16.66%;
+      box-sizing: border-box;
+      height: 108px;
+      padding: 15px 6px 6px 6px;
+      cursor: pointer;
+      overflow: hidden;
+
+      &:hover {
+        background: #f2f2f2;
+      }
+
+      &.active-item {
+        background: #e1f3fb;
+        color: #7a6df0;
+      }
+
+      >i {
+        font-size: 30px;
+        line-height: 50px;
+      }
+    }
+  }
+}
+
+.icon-dialog {
+  :global {
+    .el-dialog {
+      border-radius: 8px;
+      margin-bottom: 0;
+      margin-top: 4vh !important;
+      display: flex;
+      flex-direction: column;
+      max-height: 92vh;
+      overflow: hidden;
+      box-sizing: border-box;
+
+      .el-dialog__header {
+        padding-top: 14px;
+      }
+
+      .el-dialog__body {
+        margin: 0 20px 20px 20px;
+        padding: 0;
+        overflow: auto;
+      }
+    }
+  }
+}
+
+.personal-dialog {
+  width: 80%;
+}

@@ -1,0 +1,96 @@
+.login-container {
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  :global{
+    .logo-banner {
+      width: 50%;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .logo-content {
+      width: 400px;
+      margin-left: 100px;
+
+      .hello {
+        font-size: 40px;
+        font-weight: bold;
+        color: #10141C;
+        line-height: 134px;
+      }
+
+      .wx-login-qrcode {
+        width: 192px;
+        height: 192px;
+        border-radius: 50px;
+      }
+
+      .tips {
+        font-size: 21px;
+        font-weight: bold;
+        color: #10141C;
+        line-height: 134px;
+      }
+
+      .desc {
+        font-size: 14px;
+        font-weight: 400;
+        color: #C0C4CC;
+        line-height: 18px;
+      }
+
+      .login-form-tab {
+        // width: 300px;
+      }
+    }
+
+    .other-login-icon {
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    .logo-content ::v-deep.el-tabs__nav-wrap::after {
+      position: static !important;
+    }
+
+    .logo-content ::v-deep.el-tabs__active-bar {
+      width: 59px !important;
+      height: 7px !important;
+      border-radius: 4px !important;
+      left: 5% !important;
+      background-color: #D8D8D8 !important;
+    }
+
+    .logo-tabs .el-tabs__item.is-active {
+      color: #10141C !important;
+    }
+
+    .el-input {
+      height: 39px !important;
+      line-height: 39px !important;
+    }
+
+    .link-btn {
+      font-size: 12px !important;
+    }
+
+    .el-input__inner {
+      height: 39px !important;
+      line-height: 39px !important;
+      background: #F2F2F2 !important;
+      border: none;
+    }
+
+    .el-button {
+      background: #408EFC;
+      border-radius: 10px;
+      width: 145px;
+    }
+  }
+}

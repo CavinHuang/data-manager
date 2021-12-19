@@ -1,0 +1,34 @@
+.write-container {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  :global {
+    .title-icon-view {
+      display: flex;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+    }
+
+    .icon-view {
+      width: 59px;
+      height: 59px;
+      border-radius: 100px;
+      background-color: #0076ff;
+      display: flex;
+      align-content: center;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .success-icon {
+      text-align: center;
+      color: white;
+      font-size: 30px;
+    }
+  }
+}

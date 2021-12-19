@@ -1,0 +1,44 @@
+.publish-container {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #f7f7f7;
+  min-height: 84vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  :global {
+    .publish-finish-view {
+      width: 800px;
+      height: 200px;
+      text-align: center;
+      .icon-view {
+        width: 59px;
+        height: 59px;
+        border-radius: 100px;
+        background-color: #0076ff;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-items: center;
+        justify-content: center;
+      }
+      .success-icon {
+        text-align: center;
+        color: white;
+        font-size: 30px;
+      }
+      .success-title {
+        color: rgba(16, 16, 16, 100);
+        font-size: 28px;
+        margin: 28px 0;
+      }
+      .link-text {
+        color: rgba(16, 16, 16, 100);
+        font-size: 14px;
+        margin: 14px 0;
+      }
+    }
+  }
+}

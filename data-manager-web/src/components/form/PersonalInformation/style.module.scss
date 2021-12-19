@@ -1,0 +1,17 @@
+.personal-infomation {
+  :global {
+    .personal-item {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-bottom: 16px;
+    }
+    .personal-label {
+      min-width: 100px;
+      text-align: right;
+    }
+    .personal-value {
+      margin-right: 12px;
+      flex: 1;
+    }
+  }
+}

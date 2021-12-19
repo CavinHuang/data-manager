@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{$node.node_title}</title>
+    {include file="common/header"/}
+
+    <el-form :inline="true">
+        <el-form-item>
+            <el-button type="primary" icon="el-icon-edit" size="small" @click="clickAdd">添加</el-button>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="danger" icon="el-icon-delete" size="small" @click="postMultDelete">批量删除</el-button>
+        </el-form-item>
+        <div style="float:right">
+            <el-form-item>
+                <el-select placeholder="请选择状态" size="small" v-model="search.user_status">
+                    <el-option value="" label="全部用户">
+                    </el-option>
+                    <el-option value="0" label="正常用户">
+                    </el-option>
+                    <el-option value="1" label="禁用用户">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item style="width:120px;">
+                <el-select placeholder="筛选类别" size="small" v-model="search.filter">
+                    <el-option value="user_id" label="用户ID">
+                    </el-option>
+                    <el-option value="user_name" label="用户昵称">
+                    </el-option>
+                    <el-option value="user_account" label="用户帐号">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-input placeholder="输入关键词搜索" size="small" v-model="search.keyword"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button icon="el-icon-search" size="small" @click="getList">搜索</el-button>
+            </el-form-item>
+            <el-form-item>
+                <el-button icon="el-icon-document-copy" size="small" @click="exports">导出</el-button>
+            </el-form-item>
+        </div>
+    </el-form>
+    <el-table :data="dataList.data" @selection-change="changeSelection" v-loading="loading">
+        <el-table-column type="selection" width="50">
+        </el-table-column>
+        <el-table-column prop="user_id" label="ID" width="100">
+        </el-table-column>
+        <el-table-column prop="user_account" label="帐号">
+        </el-table-column>
+        <el-table-column prop="user_name" label="昵称">
+        </el-table-column>
+        <el-table-column prop="group_name" label="用户组">
+        </el-table-column>
+        <el-table-column prop="user_money" label="余额">
+        </el-table-column>
+        <el-table-column prop="user_ipreg" label="注册IP" width="150">
+        </el-table-column>
+        <el-table-column label="最后活跃" width="100">
+            <template slot-scope="scope">
+                {{time2string(scope.row.user_updatetime)}}
+            </template>
+        </el-table-column>
+        <el-table-column label="注册时间" width="100">
+            <template slot-scope="scope">
+                {{time2string(scope.row.user_createtime)}}
+            </template>
+        </el-table-column>
+        <el-table-column label="禁用" width="80">
+            <template slot-scope="scope">
+                <el-switch v-model="scope.row.user_status==1?true:false" active-color="#ff4949"
+                    @change="clickStatus(scope.row)">
+                </el-switch>
+            </template>
+        </el-table-column>
+        <el-table-column label="操作" width="180">
+            <template slot-scope="scope">
+                <el-link type="info" @click="clickEdit(scope.row)" :underline="false"><i class="el-icon-edit"></i>编辑
+                </el-link>
+                <el-link type="danger" @click="clickDelete(scope.row)" :underline="false"><i
+                        class="el-icon-delete"></i>删除</el-link>
+            </template>
+        </el-table-column>
+
+    </el-table>
+
+
+    <el-pagination @size-change="handleSizeChange" :page-sizes="[10, 20, 50, 100,200,500]" :page-size="10"
+        layout="total, sizes, prev, pager, next, jumper" background @current-change="changeCurrentPage"
+        :current-page="dataList.current_page" :page-count="dataList.last_page" :total="dataList.total">
+    </el-pagination>
+
+
+
+    <!-- 添加框 -->
+    <el-dialog title="添加用户" :visible.sync="dialogFormAdd" :modal-append-to-body='false'>
+        <el-form :model="formAdd" status-icon :rules="rules" ref="formAdd">
+            <el-form-item label="帐号" :label-width="formLabelWidth" prop="user_account">
+                <el-input size="medium" autocomplete="off" v-model="formAdd.user_account"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" :label-width="formLabelWidth" prop="user_password">
+                <el-input size="medium" show-password="true" autocomplete="off" v-model="formAdd.user_password">
+                </el-input>
+            </el-form-item>
+            <el-form-item label="昵称" :label-width="formLabelWidth" prop="user_name">
+                <el-input size="medium" autocomplete="off" v-model="formAdd.user_name"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱" :label-width="formLabelWidth" prop="user_email">
+                <el-input size="medium" autocomplete="off" v-model="formAdd.user_email"></el-input>
+            </el-form-item>
+            <el-form-item label="身份证" :label-width="formLabelWidth" prop="user_idcard">
+                <el-input size="medium" autocomplete="off" v-model="formAdd.user_idcard"></el-input>
+            </el-form-item>
+            <el-form-item label="真实姓名" :label-width="formLabelWidth">
+                <el-input size="medium" autocomplete="off" v-model="formAdd.user_truename"></el-input>
+            </el-form-item>
+            <el-form-item label="用户组" :label-width="formLabelWidth">
+                <el-select size="medium" placeholder="请选择用户组" v-model="formAdd.user_group">
+                    <el-option v-for="group_add in groupList" :value="group_add.group_id" :label="group_add.group_name">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="postAdd">确认添加</el-button>
+        </div>
+    </el-dialog>
+    <!-- 修改框 -->
+    <el-dialog title="修改用户" :visible.sync="dialogFormEdit" :modal-append-to-body='false'>
+        <el-form :model="formEdit" status-icon :rules="rules" ref="formEdit">
+            <el-form-item label="帐号" :label-width="formLabelWidth" prop="user_account">
+                <el-input size="medium" autocomplete="off" v-model="formEdit.user_account"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" :label-width="formLabelWidth" prop="new_password">
+                <el-input size="medium" show-password="true" autocomplete="off" v-model="formEdit.new_password"
+                    placeholder="不修改请留空">
+                </el-input>
+            </el-form-item>
+            <el-form-item label="昵称" :label-width="formLabelWidth" prop="user_name">
+                <el-input size="medium" autocomplete="off" v-model="formEdit.user_name"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱" :label-width="formLabelWidth" prop="user_email">
+                <el-input size="medium" autocomplete="off" v-model="formEdit.user_email"></el-input>
+            </el-form-item>
+            <el-form-item label="身份证" :label-width="formLabelWidth" prop="user_idcard">
+                <el-input size="medium" autocomplete="off" v-model="formEdit.user_idcard"></el-input>
+            </el-form-item>
+            <el-form-item label="真实姓名" :label-width="formLabelWidth">
+                <el-input size="medium" autocomplete="off" v-model="formEdit.user_truename"></el-input>
+            </el-form-item>
+            <el-form-item label="用户组" :label-width="formLabelWidth">
+                <el-select size="medium" placeholder="请选择用户组" v-model="formEdit.user_group">
+                    <el-option v-for="group_edit in groupList" :value="group_edit.group_id"
+                        :label="group_edit.group_name"></el-option>
+                </el-select>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="postEdit">确认修改</el-button>
+        </div>
+    </el-dialog>
+
+    {include file="common/footer"/}
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                this.getList();
+                return {
+                    search: {
+                        user_status: "",
+                        keyword: "",
+                        filter: "user_id"
+                    },
+                    formLabelWidth: '80px',
+                    dialogFormAdd: false,
+                    dialogFormEdit: false,
+                    loading: true,
+                    dataList: [],
+                    groupList: [],
+                    selectList: [],
+                    form: {
+                        page: 1,
+                        per_page: 10
+                    },
+                    formAdd: {
+                        user_group: 1
+                    },
+                    formEdit: {
+                        user_group: 1
+                    },
+                    rules: {
+                        user_account: [
+                            { required: true, pattern: /^1[3456789]\d{9}$/, message: '请输入一个有效的手机号', trigger: 'blur' },
+                        ],
+                        user_name: [
+                            { required: true, message: '昵称必须填写', trigger: 'blur' },
+                        ],
+                        user_password: [
+                            { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,16}$/, message: '密码必须包含大小写字母和数字(6-16位)', trigger: 'blur' },
+                        ],
+                        new_password: [
+                            { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,16}$/, message: '密码必须包含大小写字母和数字(6-16位)', trigger: 'blur' },
+                        ],
+                        user_email: [
+                            { pattern: /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/, message: '邮箱格式不正确', trigger: 'blur' },
+                        ],
+                        user_idcard: [
+                            { pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, message: '身份证格式不正确', trigger: 'blur' },
+                        ],
+                    }
+                }
+            },
+            methods: {
+                time2string(timestamps) {
+                    var now = new Date(timestamps * 1000),
+                        y = now.getFullYear(),
+                        m = now.getMonth() + 1,
+                        d = now.getDate();
+                    // return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
+                    return (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 5);
+                },
+                handleSizeChange(per_page) {
+                    this.form.per_page = per_page;
+                    this.getList();
+                },
+                postMultDelete() {
+                    var that = this;
+                    if (that.selectList.length == 0) {
+                        that.$message.error('未选择任何用户！');
+                        return;
+                    }
+                    this.$confirm('即将删除选中的用户, 是否确认?', '批量删除', {
+                        confirmButtonText: '删除',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        axios.post('/api/user/delete', Object.assign({}, PostBase, {
+                            user_id: that.selectList.join(",")
+                        }))
+                            .then(function (response) {
+                                that.getList();
+                                if (response.data.code == CODE_SUCCESS) {
+                                    that.$message({
+                                        message: response.data.msg,
+                                        type: 'success'
+                                    });
+                                } else {
+                                    that.$message.error(response.data.msg);
+                                }
+                            })
+                            .catch(function (error) {
+                                that.$message.error('服务器内部错误');
+                                console.log(error);
+                            });
+                    }).catch(() => {
+                    });
+                },
+                changeSelection(list) {
+                    var that = this;
+                    that.selectList = [];
+                    for (var index in list) {
+                        that.selectList.push(list[index].user_id);
+                    }
+                },
+                postEdit() {
+                    var that = this;
+                    that.$refs['formEdit'].validate((valid) => {
+                        if (!valid) {
+                            that.$message.error('仔细检查检查，是不是有个地方写得不对？');
+                            return;
+                        }
+                        axios.post('/api/user/update', Object.assign({}, PostBase, that.formEdit))
+                            .then(function (response) {
+                                that.getList();
+                                if (response.data.code == CODE_SUCCESS) {
+                                    that.$message({
+                                        message: response.data.msg,
+                                        type: 'success'
+                                    });
+                                    that.dialogFormEdit = false;
+                                } else {
+                                    that.$message.error(response.data.msg);
+                                }
+                            })
+                            .catch(function (error) {
+                                that.$message.error('服务器内部错误');
+                                console.log(error);
+                            });
+                    });
+                },
+                postAdd() {
+                    var that = this;
+                    that.$refs['formAdd'].validate((valid) => {
+                        if (!valid) {
+                            that.$message.error('仔细检查检查，是不是有个地方写得不对？');
+                            return;
+                        }
+                        axios.post('/api/user/add', Object.assign({}, PostBase, that.formAdd))
+                            .then(function (response) {
+                                that.getList();
+                                if (response.data.code == CODE_SUCCESS) {
+                                    that.$message({
+                                        message: response.data.msg,
+                                        type: 'success'
+                                    });
+                                    that.dialogFormAdd = false;
+                                } else {
+                                    that.$message.error(response.data.msg);
+                                }
+                            })
+                            .catch(function (error) {
+                                that.$message.error('服务器内部错误');
+                                console.log(error);
+                            });
+                    });
+                },
+                clickAdd() {
+                    var that = this;
+                    that.formAdd = {
+                        user_group: 1
+                    };
+                    axios.post('/api/group/getList', Object.assign({}, PostBase))
+                        .then(function (response) {
+                            that.groupList = response.data.data;
+                            if (response.data.code == CODE_SUCCESS) {
+                                that.dialogFormAdd = true;
+                            } else {
+                                that.$message.error(response.data.msg);
+                            }
+                        })
+                        .catch(function (error) {
+                            that.$message.error('服务器内部错误');
+                            console.log(error);
+                        });
+                },
+                clickDelete(row) {
+                    var that = this;
+                    this.$confirm('即将删除这个用户, 是否确认?', '删除提醒', {
+                        confirmButtonText: '删除',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        axios.post('/api/user/delete', Object.assign({}, PostBase, {
+                            user_id: row.user_id
+                        }))
+                            .then(function (response) {
+                                that.getList();
+                                if (response.data.code == CODE_SUCCESS) {
+                                    that.$message({
+                                        message: response.data.msg,
+                                        type: 'success'
+                                    });
+                                } else {
+                                    that.$message.error(response.data.msg);
+                                }
+                            })
+                            .catch(function (error) {
+                                that.$message.error('服务器内部错误');
+                                console.log(error);
+                            });
+                    }).catch(() => {
+                    });
+                },
+                clickStatus(row) {
+                    var that = this;
+                    axios.post(row.user_status ? '/api/user/enable' : '/api/user/disable', Object.assign({}, PostBase, {
+                        user_id: row.user_id
+                    }))
+                        .then(function (response) {
+                            that.getList();
+                            if (response.data.code == CODE_SUCCESS) {
+                                that.$message({
+                                    message: response.data.msg,
+                                    type: 'success'
+                                });
+                            } else {
+                                that.$message.error(response.data.msg);
+                            }
+                        })
+                        .catch(function (error) {
+                            that.$message.error('服务器内部错误');
+                            console.log(error);
+                        });
+                },
+                clickEdit(row) {
+                    var that = this;
+                    that.formEdit = row;
+                    axios.post('/api/group/getList', Object.assign({}, PostBase))
+                        .then(function (response) {
+                            if (response.data.code == CODE_SUCCESS) {
+                                that.groupList = response.data.data;
+                                axios.post('/api/user/detail', Object.assign({}, PostBase, {
+                                    user_id: row.user_id
+                                }))
+                                    .then(function (response) {
+                                        if (response.data.code == CODE_SUCCESS) {
+                                            that.formEdit = response.data.data;
+                                            that.dialogFormEdit = true;
+                                        } else {
+                                            that.$message.error(response.data.msg);
+                                        }
+                                    })
+                                    .catch(function (error) {
+                                        that.$message.error('服务器内部错误');
+                                        console.log(error);
+                                    });
+                            } else {
+                                that.$message.error(response.data.msg);
+                            }
+                        })
+                        .catch(function (error) {
+                            that.$message.error('服务器内部错误');
+                            console.log(error);
+                        });
+
+                },
+                changeCurrentPage(page) {
+                    this.form.page = page;
+                    this.getList();
+                },
+                getList() {
+                    var that = this;
+                    that.loading = true;
+                    axios.post('/api/user/getList', Object.assign({}, PostBase, that.form, that.search))
+                        .then(function (response) {
+                            that.loading = false;
+                            if (response.data.code == CODE_SUCCESS) {
+                                that.dataList = response.data.data;
+                            } else {
+                                that.$message.error(response.data.msg);
+                            }
+                        })
+                        .catch(function (error) {
+                            that.loading = false;
+                            that.$message.error('服务器内部错误');
+                            console.log(error);
+                        });
+                },
+                exports() {
+                    var that = this;
+                    var filters = Object.assign({}, PostBase, that.search);
+                    var url = '/api/user/excel?';
+                    for (let key in filters) {
+                        url += key + "=" + filters[key] + "&";
+                    }
+                    window.open(url);
+                    that.$message.success('数据导出成功');
+                }
+            }
+        })
+    </script>
+
+
+</html>

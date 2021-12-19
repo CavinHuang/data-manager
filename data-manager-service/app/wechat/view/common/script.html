@@ -1,0 +1,19 @@
+<script src="/static/js/fastclick.js"></script>
+<script src="/static/js/vue-2.6.10.min.js"></script>
+<script src="/static/js/axios.min.js"></script>
+<script src="/static/js/jweixin-1.2.0.min.js"></script>
+<script src="/static/js/weui-1.2.1.min.js"></script>
+<script>
+    function jssdkInit() {
+        axios.post('/wechat/jssdk', {
+            url: location.href.split('#')[0]
+        })
+            .then(function (response) {
+                wx.config(response.data);
+            })
+            .catch(function (error) {
+                that.$message.error('服务器内部错误');
+console.log(error);
+            });
+    }
+</script>

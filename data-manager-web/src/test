@@ -1,0 +1,89 @@
+<div class="develop1">
+  <div class="swiper-container swiper-container-initialized swiper-container-horizontal" id="swiper3">
+  <div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(-4952px, 0px, 0px);"><div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="3" style="width: 1238px;">
+          <div class="develop_item">
+              <div class="de_left">
+                  <img src="https://cdn.jnpfsoft.com/img/icon/banner1.png" alt="">
+              </div>
+              <div class="de_right">
+                  <div class="title">
+                      发布功能
+                  </div>
+                  <p>表单权限和数据管理设置，搭建好的表单应用在系统菜单中可以直接调用，也可复制使用</p>
+              </div>
+          </div>
+      </div>
+      <div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0" style="width: 1238px;">
+          <div class="develop_item">
+              <div class="de_left">
+                  <img src="https://cdn.jnpfsoft.com/img/icon/dev_icon2.png" alt="">
+              </div>
+              <div class="de_right">
+                  <div class="title">
+                      信息录入
+                  </div>
+                  <p>名称、编码、分类、状态等信息填写，也可增加数据表，控件属性字段读取表</p>
+              </div>
+          </div>
+      </div>
+      <div class="swiper-slide" data-swiper-slide-index="1" style="width: 1238px;">
+          <div class="develop_item">
+              <div class="de_left">
+                  <img src="https://cdn.jnpfsoft.com/img/icon/dev_icon1.png" alt="">
+              </div>
+              <div class="de_right">
+                  <div class="title">
+                      拖拽控件
+                  </div>
+                  <p>配有丰富的组件，通过点选或拖拽形式配置出所需表单，并且有多种表单展示样式选择</p>
+              </div>
+          </div>
+      </div>
+      <div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="2" style="width: 1238px;">
+          <div class="develop_item">
+              <div class="de_left">
+                  <img src="https://cdn.jnpfsoft.com/img/icon/dev_icon.png" alt="">
+              </div>
+              <div class="de_right">
+                  <div class="title">
+                      属性设置
+                  </div>
+                  <p>不同的控件对应着不同的属性配置，根据表单特点编辑属性内容</p>
+              </div>
+          </div>
+      </div>
+      <div class="swiper-slide swiper-slide-active" data-swiper-slide-index="3" style="width: 1238px;">
+          <div class="develop_item">
+              <div class="de_left">
+                  <img src="https://cdn.jnpfsoft.com/img/icon/banner1.png" alt="">
+              </div>
+              <div class="de_right">
+                  <div class="title">
+                      发布功能
+                  </div>
+                  <p>表单权限和数据管理设置，搭建好的表单应用在系统菜单中可以直接调用，也可复制使用</p>
+              </div>
+          </div>
+      </div>
+  <div class="swiper-slide swiper-slide-duplicate swiper-slide-next" data-swiper-slide-index="0" style="width: 1238px;">
+          <div class="develop_item">
+              <div class="de_left">
+                  <img src="https://cdn.jnpfsoft.com/img/icon/dev_icon2.png" alt="">
+              </div>
+              <div class="de_right">
+                  <div class="title">
+                      信息录入
+                  </div>
+                  <p>名称、编码、分类、状态等信息填写，也可增加数据表，控件属性字段读取表</p>
+              </div>
+          </div>
+      </div></div>
+  <div class="swiper-pagination swiper-pagination-bullets swiper-pagination-clickable" style="bottom: 30px;">
+    <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 1"></span>
+    <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span>
+    <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span>
+    <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 4"></span>
+  </div>
+  <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+  </div>
+</div>

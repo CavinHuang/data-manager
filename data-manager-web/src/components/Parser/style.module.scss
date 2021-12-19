@@ -1,0 +1,35 @@
+.render-wrap {
+  :global {
+    .el-radio-group,
+    .el-checkbox-group {
+      margin-left: 10px;
+    }
+
+    .el-radio,
+    .el-checkbox {
+      display: block;
+      min-height: 23px;
+      line-height: 23px;
+    }
+
+    .el-radio__label,
+    .el-checkbox__label {
+      font-size: 14px;
+      padding-left: 10px;
+      text-overflow: ellipsis;
+      white-space: normal;
+      min-height: 18px;
+      vertical-align: middle;
+      display: inline-block;
+    }
+
+    .item-other-input {
+      margin-left: 20px !important;
+      -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+    }
+
+    .item-other-input:focus {
+      outline: none !important;
+    }
+  }
+}
