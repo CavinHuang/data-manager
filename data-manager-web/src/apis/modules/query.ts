@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-12 16:16:30
- * @LastEditTime: 2021-12-19 11:16:00
+ * @LastEditTime: 2021-12-19 14:21:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \data-manager-web\src\apis\modules\query.ts
@@ -37,4 +37,8 @@ export const getResult = (params: { config: TBaseQueryConfig[], query_id: number
 
 export const deleteRow = (id: number) => {
   return get('/query/delete_row', { id })
+}
+
+export const updateStatus = (data: { id: number, status: number }) => {
+  return post('/query/update_status', data)
 }

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-07 21:57:55
- * @LastEditTime: 2021-12-19 13:35:36
+ * @LastEditTime: 2021-12-19 14:24:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \data-manager-web\src\views\home\queryList.tsx
@@ -13,7 +13,7 @@ import { defineComponent,reactive,ref } from 'vue'
 import UserHeader from './components/userHeader'
 import css from './index.module.scss'
 import QuerySetting from './components/querySetting'
-import { submit, deleteRow } from '@/apis/modules/query'
+import { submit, deleteRow, updateStatus } from '@/apis/modules/query'
 import { cloneDeep } from 'lodash'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
@@ -175,8 +175,11 @@ export default defineComponent({
       console.log(slection)
     }
 
-    const updateStatus = (status: number) => {
-
+    const updateStatusHandler = (row: TQueryItem, status: number) => {
+      updateStatus({ id: row.id, status }).then(() => {
+        ElMessage.success('更新成功')
+        row.status = status
+      })
     }
 
     return () => (
@@ -217,8 +220,8 @@ export default defineComponent({
                 <el-table-column label="查询名称" prop='title' width="220" show-overflow-tooltip></el-table-column>
                 <el-table-column prop="status" label="查询状态" width="120" v-slots={{
                   default: ({ row }: { row: TQueryItem }) => {
-                    if (row.status === 0) return <el-button type="success" plain size='mini' onClick={() => { updateStatus(1) }}>已启用</el-button>
-                    else return <el-button type="danger" plain size='mini' onClick={() => { updateStatus(0) }}>已关闭</el-button>
+                    if (row.status === 0) return <el-button type="success" plain size='mini' onClick={() => { updateStatusHandler(row, 1) }}>已启用</el-button>
+                    else return <el-button type="danger" plain size='mini' onClick={() => { updateStatusHandler(row, 0) }}>已关闭</el-button>
                   }
                 }}></el-table-column>
                 <el-table-column align='center' prop="limit_number" label="次数限制" width="120" show-overflow-tooltip></el-table-column>

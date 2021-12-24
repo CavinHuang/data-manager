@@ -39,14 +39,14 @@ export default defineComponent({
             <div class='main-content mt_40'>
               <div class='content-item'>
                 <div class='add-wrapper' onClick={goQuery}>
-                  <i class='icon icon-query'></i>
-                  <span>新建查询</span>
+                  <div class='title'>新建查询</div>
+                  <div class='desc'>上传一些数据，自定义查询条件，提供给第三方查询</div>
                 </div>
               </div>
               <div class='content-item'>
                 <div class='add-wrapper' onClick={createQuestion}>
-                  <i class='icon icon-query'></i>
-                  <span>新建采集</span>
+                  <div class='title'>新建采集</div>
+                  <div class='desc'>预置一些信息收集的选项，提供给第三方填写，导出填写的数据作为参考。</div>
                 </div>
               </div>
             </div>

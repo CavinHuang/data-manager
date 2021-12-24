@@ -157,6 +157,19 @@ class Query extends BaseController
         }
     }
 
+    public function update_status() {
+        $post = $this->request->post();
+        if (!isset($post['id']) || empty($post['id'])) return jerr('没有这样的记录');
+        $row = $this->model->where('id', $post['id'])->find();
+
+        if (!$row || empty($row)) return jerr('没有这样的记录');
+
+        if ($row->where('id', $post['id'])->update(['status' => $post['status']])) {
+            return jok('成功');
+        }
+        return jerr('失败');
+    }
+
     public function lists($page = 1, $page_size = 10) {
         $lists = $this->model->where(['user_id' => $this->user->user_id, 'is_deleted' => 0])->order('id desc, createtime desc')->paginate(['list_rows' => $page_size, 'query' => ['page' => $page]]);
         return jok('查询成功', $lists);
